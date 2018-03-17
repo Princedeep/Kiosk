@@ -1,26 +1,28 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/* File: FishStick.java
+/* File: Database.java
  * Author: Princedeep Singh
  * Date: Feb, 2018
- * Description: Simple data transfer object.
+ * Description: Simple database .
  */
 
 
 public class Database{
     private  int recordsInserted; // Integer to keep track of record inserted 
-	private static  Connection con = null; // Connection variable used for creating connection
-	private  String connectionString = "jdbc:mysql://localhost/info"; //String variable for connnection url
-	private  String username = "assignment1"; // String variable for Username of database
-	private String password = "password"; // String variable for password of database
+	private static  Connection con =null ; // Connection variable used for creating connection
+	private static String connectionString = "jdbc:mysql://localhost/info"; //String variable for connnection url
+	private static String username = "assignment1"; // String variable for Username of database
+	private static String password = "password"; // String variable for password of database
 	private  String a=null;
+	
 	//private static PreparedStatement pstmt = null; // Variable for sql prepared statement
 	
 	 
-	public  void openConnection() {
+	public static  void openConnection() {
 
 		try {
 			if (con != null) // Condition to check null value of connection
@@ -72,8 +74,6 @@ public static void insert()
 		 * and then print total number of records inserted
 		 */
 
-			
-		
 		
 	
 	} 
@@ -91,4 +91,17 @@ public static void insert()
 		 */
 	
 	}
+
+
+   protected ResultSet getresult(String id) throws SQLException {
+	    con = DriverManager.getConnection(connectionString, username, password);
+	    ResultSet exe;
+		String query="Select * from admin where id=? ";
+		java.sql.PreparedStatement stmt = con.prepareStatement(query);
+		stmt.setString(1, id);
+		exe=stmt.executeQuery();
+		
+		return exe;
+	   
+   }
 }
