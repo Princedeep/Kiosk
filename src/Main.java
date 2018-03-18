@@ -1,13 +1,18 @@
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+/* File: Main.java
+ * Authors: Princedeep Singh and Jay Patel
+ * Date Last Modified: March 17, 2018
+ * Description: Main class which runs other classes
+ * 
+ */
 
-import javax.swing.JTextField;
 public class Main {
-public static void main(String[]args) {
-	View firstView= new View();
-	firstView.getView();
-}
-	
+	public Main() {
+
+	}
+
+	public static void main(String[] args) {
+		View firstView = new View();
+		firstView.getView();
+	}
+	//
 }
