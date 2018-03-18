@@ -34,7 +34,9 @@ public class Database {
 				System.out.println("Cannot create new connection from consumer, one exists already");
 				// Statement to Print message if above condition is true
 			} else { // Execute con statement on failure of if condition
-				con = DriverManager.getConnection(connectionString, username, password); // Opening connection
+
+				con = DriverManager.getConnection(connectionString, username, password); // Opening
+																							// connection
 			}
 
 		} // end of openConnection() method
@@ -47,6 +49,7 @@ public class Database {
 		}
 	}
 
+
 	/**
 	 * Method to close Database connection
 	 */
@@ -56,8 +59,6 @@ public class Database {
 
 				con.close();// closing connection
 			}
-		}
-
 		/**
 		 * Catch block to catch Sql Exception
 		 */
@@ -66,22 +67,49 @@ public class Database {
 		}
 	}
 
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SQLException
-	 */
+	}
 
-	protected ResultSet getresult(String id) throws SQLException {
+	protected Boolean getresult(String id) throws SQLException {
 		con = DriverManager.getConnection(connectionString, username, password);
-		ResultSet exe;
-		String query = "Select * from admin where id=? ";
-		java.sql.PreparedStatement stmt = con.prepareStatement(query);
-		stmt.setString(1, id);
-		exe = stmt.executeQuery();
 
-		return exe;
+		// -- Admin  1
+		Boolean idFound = false;
+		ResultSet exeAdmin;
+		String queryAdmin = "Select * from admin where id=? ";
+		java.sql.PreparedStatement stmtAdmin = con.prepareStatement(queryAdmin);
+		stmtAdmin.setString(1, id);
+		exeAdmin = stmtAdmin.executeQuery();
 
-	}//
+		// -- Student  2
+ 		ResultSet exeStudent;
+		String queryStudent = "Select * from student where id=? ";
+		java.sql.PreparedStatement stmtStudent = con.prepareStatement(queryStudent);
+		stmtStudent.setString(1, id);
+		exeStudent = stmtStudent.executeQuery();
+
+		// -- Proff   3
+		ResultSet exeProf;
+		String queryProff = "Select * from professors where id=? ";
+		java.sql.PreparedStatement stmtProff = con.prepareStatement(queryProff);
+		stmtProff.setString(1, id);
+		exeProf = stmtProff.executeQuery();
+
+		
+		if (exeAdmin.next() == true) {
+			idFound = true;
+			Validations.loginAccount=1;
+		}
+		if (exeStudent.next() == true) {
+			idFound = true;
+			Validations.loginAccount=2;
+		}
+		if (exeProf.next()) {
+			idFound = true;
+			Validations.loginAccount=3;
+		}
+
+		return idFound;
+
+	}
+
 }
