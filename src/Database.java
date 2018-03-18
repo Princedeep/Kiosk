@@ -49,7 +49,6 @@ public class Database {
 		}
 	}
 
-
 	/**
 	 * Method to close Database connection
 	 */
@@ -59,6 +58,8 @@ public class Database {
 
 				con.close();// closing connection
 			}
+		}
+
 		/**
 		 * Catch block to catch Sql Exception
 		 */
@@ -67,12 +68,10 @@ public class Database {
 		}
 	}
 
-	}
-
 	protected Boolean getresult(String id) throws SQLException {
 		con = DriverManager.getConnection(connectionString, username, password);
 
-		// -- Admin  1
+		// -- Admin 1
 		Boolean idFound = false;
 		ResultSet exeAdmin;
 		String queryAdmin = "Select * from admin where id=? ";
@@ -80,32 +79,31 @@ public class Database {
 		stmtAdmin.setString(1, id);
 		exeAdmin = stmtAdmin.executeQuery();
 
-		// -- Student  2
- 		ResultSet exeStudent;
+		// -- Student 2
+		ResultSet exeStudent;
 		String queryStudent = "Select * from student where id=? ";
 		java.sql.PreparedStatement stmtStudent = con.prepareStatement(queryStudent);
 		stmtStudent.setString(1, id);
 		exeStudent = stmtStudent.executeQuery();
 
-		// -- Proff   3
+		// -- Proff 3
 		ResultSet exeProf;
 		String queryProff = "Select * from professors where id=? ";
 		java.sql.PreparedStatement stmtProff = con.prepareStatement(queryProff);
 		stmtProff.setString(1, id);
 		exeProf = stmtProff.executeQuery();
 
-		
 		if (exeAdmin.next() == true) {
 			idFound = true;
-			Validations.loginAccount=1;
+			Validations.loginAccount = 1;
 		}
 		if (exeStudent.next() == true) {
 			idFound = true;
-			Validations.loginAccount=2;
+			Validations.loginAccount = 2;
 		}
 		if (exeProf.next()) {
 			idFound = true;
-			Validations.loginAccount=3;
+			Validations.loginAccount = 3;
 		}
 
 		return idFound;
