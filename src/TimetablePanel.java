@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class TimetablePanel extends JPanel {
-	GridLayout layout = new GridLayout(1, 1);
 	JLabel text = new JLabel("Timetable");
 	JButton btnLoad = new JButton("Load Timetable");
 	JButton btnAdd = new JButton("Add To Timetable");
@@ -37,7 +36,6 @@ public class TimetablePanel extends JPanel {
 	
 	
 	TimetablePanel(){	
-		this.setLayout(layout);
 		fc.addChoosableFileFilter(filter);
 		fc.setAcceptAllFileFilterUsed(false);
 		add(text);
