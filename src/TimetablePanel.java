@@ -33,7 +33,6 @@ public class TimetablePanel extends JPanel {
 	JButton btnLoad = new JButton("Load Timetable");
 	JButton btnAdd = new JButton("Add To Timetable");
 	JButton btnExport = new JButton("Export Timetable");
-	JButton btnDel = new JButton("Delete Row");
 	JFileChooser fc = new JFileChooser();
 	JTable table = new JTable();
 	String details;
@@ -44,10 +43,7 @@ public class TimetablePanel extends JPanel {
 	String HEADER = ("Subject, Start Date, Start Time, End Date, End Time");
 	DefaultTableModel model = new DefaultTableModel(0, 0){
 		public boolean isCellEditable(int row, int column) {
-			if (row > 0)
-				return true;
-		        else
-		        return false;
+			return false;
 		}
 	};
 	
@@ -69,7 +65,6 @@ public class TimetablePanel extends JPanel {
 		add(btnLoad);
 		add(btnAdd);
 		add(btnExport);
-		//add(btnDel);
 
 		model.setColumnIdentifiers(columnNames);
 
@@ -106,57 +101,60 @@ public class TimetablePanel extends JPanel {
 		btnAdd.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//model.addRow(new Object[]{});
-				String subject = JOptionPane.showInputDialog("Enter a Subject to add:");
-				while(subject.isEmpty()){
-					JOptionPane.showMessageDialog(btnAdd, "Do not leave subject blank");
-					subject = JOptionPane.showInputDialog("Enter a Subject to add:");
-				}
-					
-				String startDate = JOptionPane.showInputDialog("Enter a Start Date to add:");
-				while(startDate.isEmpty()){
-					JOptionPane.showMessageDialog(btnAdd, "Do not leave start date blank");
-					startDate = JOptionPane.showInputDialog("Enter a Start Date to add:");
-				}
+				Object[] fields= {
+						"Subject", subjectField,
+						"Start Date", startDateField,
+						"Start Time", startTimeField,
+						"End Date", endDateField,
+						"End Time", endTimeField
+				};
 				
-				String startTime = JOptionPane.showInputDialog("Enter an Start Time to add:");
-				while(startDate.isEmpty()){
-					JOptionPane.showMessageDialog(btnAdd, "Do not leave start date blank");
-					startDate = JOptionPane.showInputDialog("Enter a Start Date to add:");
-				}
+				/**
+				 * The following allows user to input information for timetable one field
+				 * at a time. This solution is more elegant for a touch screen, prevents
+				 * mistyping. Restrictions on the input types can be added.
+				 */
 				
-				String endDate = JOptionPane.showInputDialog("Enter an End Date to add:");
-				while(endDate.isEmpty()){
-					JOptionPane.showMessageDialog(btnAdd, "Do not leave end date blank");
-					endDate = JOptionPane.showInputDialog("Enter an End Date to add:");
-				}
-				String endTime = JOptionPane.showInputDialog("Enter an End Time to add:");
-				while(endTime.isEmpty()){
-					JOptionPane.showMessageDialog(btnAdd, "Do not leave end time blank");
-					endTime = JOptionPane.showInputDialog("Enter an End Time to add:");
-				}
-
-				Object rowData[] = new Object[5];
-				rowData[0] = subject; 
-				rowData[1] = startDate; 
-				rowData[2] = startTime; 
-				rowData[3] = endDate; 
-				rowData[4] = endTime; 
-				model.addRow(rowData);
+				String subject = JOptionPane.showInputDialog(null, "Input Subject");
+				String startDate = JOptionPane.showInputDialog(null, "Input Start Date");
+				String startTime = JOptionPane.showInputDialog(null, "Input Start Time");
+				String endDate = JOptionPane.showInputDialog(null, "Input End Date");
+				String endTime = JOptionPane.showInputDialog(null, "Input End Time");
+				
+				model.addRow(new Object[]{
+						subject,
+						startDate,
+						startTime,
+						endDate,
+						endTime						
+				});
+				
+				/**
+				 * Second Option for user input, more fields on one window 
+				 * so less elegant for touch screen use
+				 * JOptionPane.showConfirmDialog(null, fields, "Input new timetable item", JOptionPane.OK_CANCEL_OPTION);	
+								
+				model.addRow(new Object[]{
+						subjectField.getText().toString(),
+						startDateField.getText().toString(),
+						startTimeField.getText().toString(),
+						endDateField.getText().toString(),
+						endTimeField.getText().toString()
+				});
+				 */
+				
 				// Create JOptionPane or other method of receiving user input
 				// Use that input to add a new row to the model by populating the above Object array
 				// When the array is populated call the model.addRow() method to insert the new row
 			}
-		}); 
+		});
 		btnExport.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					fc.showOpenDialog(getParent());
-					file = fc.getSelectedFile();		
-					FileWriter fileWriter = new FileWriter(file, true);
-					//fileWriter.append(HEADER);
-					for(int row = 0; row < model.getRowCount(); row++){
+					FileWriter fileWriter = new FileWriter(outputFile);
+					fileWriter.append(HEADER);
+					for(int row = 1; row < model.getRowCount(); row++){
 						for(int col = 0; col < model.getColumnCount(); col++){
 							fileWriter.append(model.getValueAt(row, col).toString());
 							fileWriter.append(",");
@@ -164,43 +162,15 @@ public class TimetablePanel extends JPanel {
 						}
 						fileWriter.append("\n");
 					}
-					fileWriter.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}		
 			}
 		});
-		
-		/*btnDel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					int selectedRowIndex = table.getSelectedRow();
-					
-					subjectField.setText(model.getValueAt(selectedRowIndex, 0).toString());
-					startDateField.setText(model.getValueAt(selectedRowIndex, 1).toString());
-					startTimeField.setText(model.getValueAt(selectedRowIndex, 2).toString());
-					endDateField.setText(model.getValueAt(selectedRowIndex, 3).toString());
-					endTimeField.setText(model.getValueAt(selectedRowIndex, 4).toString());
-				
-					
-					model.removeRow(table.getSelectedRow());
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-				
-			}
-			
-		});*/
-		
-		
+
 	}
-	private void jTableMouseClicked(java.awt.event.MouseEvent evt) {
-		
-	}
-	
+
 	public void  CSVReader(){
 		try{
 			FileReader fr = new FileReader(file);
@@ -219,3 +189,4 @@ public class TimetablePanel extends JPanel {
 		}
 	}
 }
+

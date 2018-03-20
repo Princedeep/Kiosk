@@ -36,7 +36,6 @@ public class SplashPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				window.getContentPane().removeAll();
-				window.repaint();
 				window.add(menuPanel);
 				window.add(Timetable);
 				window.revalidate();
@@ -46,7 +45,6 @@ public class SplashPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				window.getContentPane().removeAll();
-				window.repaint();
 				window.add(menuPanel);
 				window.add(ScheduleAppointment);
 				window.revalidate();
@@ -56,7 +54,6 @@ public class SplashPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				window.getContentPane().removeAll();
-				window.repaint();
 				window.add(menuPanel);
 				window.add(CancelClass);
 				window.revalidate();
