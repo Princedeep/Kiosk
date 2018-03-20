@@ -1,4 +1,3 @@
-
 /*File: Validations.java
  * Authors: Princedeep Singh and Jay Patel
  * Date Last Modified: 17 March,2018
