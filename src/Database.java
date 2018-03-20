@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * Description: Simple database class to create queries and operations to database
  */
 
-public class Database {
+public class Database extends Main {
 	private int recordsInserted; // Integer to keep track of record inserted
 	private static Connection con = null; // Connection variable used for creating connection
 	private static String connectionString = "jdbc:mysql://localhost/info"; // String variable for connnection url
