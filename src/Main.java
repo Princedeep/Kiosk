@@ -15,7 +15,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		View firstView = new View();
-		firstView.getView();
+		AppointmentInterface appoint = new AppointmentInterface();
+		//firstView.getView(); 
+//		appoint.getView();
 
 	}
 
