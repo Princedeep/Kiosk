@@ -6,9 +6,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JComboBox;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 
@@ -74,6 +79,13 @@ public class CancelAppointment extends JFrame {
         gbcCancel1.insets = new Insets(10,0,0,0);
         gbcCancel1.anchor = GridBagConstraints.PAGE_END;
         panel.add(button);
+        
+        button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent t) {
+				JButton cancButton = (JButton) t.getSource();	
+				JOptionPane.showConfirmDialog(null,"Are you sure?");		
+			}});
 
         pack();
     }

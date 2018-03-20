@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -6,19 +7,35 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.Insets;
 import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class AppointmentInterface extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     String[] appointTimes = {"10am", "12pm", "1pm", "3pm", "4pm"};	
-    JButton button;
+    JButton cancelButton;
+    JButton confirmButton;
+    JButton dateButton;
+    JDialog cancelDialog = new JDialog();
+    DateChooserPanel calendar = new DateChooserPanel();
+
+    
+    
+    String confirmDialog = "Appointment Scheduled";
 
     public static void main(String[] args) {
+    	
+    	    	
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -63,22 +80,51 @@ public class AppointmentInterface extends JFrame {
         gbc_comboBox.gridy = 0;
         panel.add(comboBox, gbc_comboBox);
         
-        button = new JButton("Confirm Appointment");
+        confirmButton = new JButton("Confirm Appointment");
         GridBagConstraints gbcConfirm = new GridBagConstraints();
         gbcConfirm.insets = new Insets(10,0,0,0);
         gbcConfirm.anchor = GridBagConstraints.PAGE_END;
-        panel.add(button);
+        panel.add(confirmButton);
         
-        button = new JButton("Cancel");
+        cancelButton = new JButton("Cancel");
         GridBagConstraints gbcCancel1 = new GridBagConstraints();
         gbcCancel1.insets = new Insets(10,0,0,0);
         gbcCancel1.anchor = GridBagConstraints.PAGE_END;
-        panel.add(button);
+        panel.add(cancelButton);
         
         JLabel selectDateLabel = new JLabel("Please select a date");
         GridBagConstraints gbcDateLabel = new GridBagConstraints();
         gbcDateLabel.anchor = GridBagConstraints.PAGE_START;
+        gbcDateLabel.gridy=2;
         panel.add(selectDateLabel);
+        
+        dateButton = new JButton("Calendar");
+        GridBagConstraints gbcDate = new GridBagConstraints();
+        gbcDate.anchor = GridBagConstraints.PAGE_END;
+        gbcDate.gridy = 2;
+        panel.add(dateButton);
+        
+        confirmButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton confButton = (JButton) e.getSource();
+				JOptionPane.showMessageDialog(null, confirmDialog);
+			}});
+		cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent t) {
+				JButton cancButton = (JButton) t.getSource();	
+				JOptionPane.showConfirmDialog(null,"Are you sure?");		
+			}});
+		dateButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JButton dateAction = (JButton) e.getSource();
+				//calendar.getCalendarPanel();
+				panel.add(calendar);
+		}});
+        
+        
 
         pack();
     }
