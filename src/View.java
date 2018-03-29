@@ -1,5 +1,13 @@
+/* File: View.java
+ * Authors: Adam , Ivan, Princedeep
+ * Date Last Modified: March 17, 2018
+ * Description - This class creates main gui which has elements like
+ * labels, text field and button. This is login screen.
+ * 
+ */
 
 import java.sql.Statement;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,8 +39,8 @@ public class View {
 		panel.add(userLabel);// Adding user label to panel
 
 		/**
-		 * Creating text field for Id setting validations. Id field will only
-		 * take numbers and limited to 8 in length
+		 * Creating text field for Id setting validations. Id field will only take
+		 * numbers and limited to 8 in length
 		 */
 		Id.setBounds(100, 70, 165, 25);
 		panel.add(Id);
@@ -53,6 +61,7 @@ public class View {
 		 * Making everything in frame visible to user
 		 */
 
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		frame.invalidate();
 		frame.validate();
