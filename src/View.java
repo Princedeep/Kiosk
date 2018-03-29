@@ -1,4 +1,3 @@
-
 /* File: View.java
  * Authors: Adam , Ivan, Princedeep
  * Date Last Modified: March 17, 2018
@@ -6,7 +5,6 @@
  * labels, text field and button. This is login screen.
  * 
  */
-
 
 import java.sql.Statement;
 
@@ -24,8 +22,6 @@ public class View {
 																		// frame
 	static JTextField Id = new JTextField(8);
 
-
-	
 	public void getView() {
 		Validations v = new Validations();
 		frame.setSize(500, 300);
@@ -35,7 +31,6 @@ public class View {
 		frame.add(panel);// Adding Panel to frame
 		panel.setLayout(null);
 
-
 		/**
 		 * Creating labels for user and password
 		 */
@@ -44,10 +39,8 @@ public class View {
 		panel.add(userLabel);// Adding user label to panel
 
 		/**
-
-		 * Creating text field for Id setting validations. Id field will only
-		 * take numbers and limited to 8 in length
-
+		 * Creating text field for Id setting validations. Id field will only take
+		 * numbers and limited to 8 in length
 		 */
 		Id.setBounds(100, 70, 165, 25);
 		panel.add(Id);
@@ -68,6 +61,7 @@ public class View {
 		 * Making everything in frame visible to user
 		 */
 
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		frame.invalidate();
 		frame.validate();
