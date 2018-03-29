@@ -3,13 +3,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JTextField;
+
 /* File: Database.java
  * Author: Princedeep Singh
  * Date Last Modified: Feb, 2018
  * Description: Simple database class to create queries and operations to database
  */
 
-public class Database extends Main {
+public class Database {
 	private int recordsInserted; // Integer to keep track of record inserted
 	private static Connection con = null; // Connection variable used for creating connection
 	private static String connectionString = "jdbc:mysql://localhost/info"; // String variable for connnection url
@@ -66,6 +68,23 @@ public class Database extends Main {
 		catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+
+	protected void InsertData(JTextField a, JTextField b, JTextField c, JTextField d) {
+		try {
+			con = DriverManager.getConnection(connectionString, username, password);
+			String query = "insert into student(Id,Course_Id,Name,Email)  Values(?,?,?,?)";
+			java.sql.PreparedStatement stmt = con.prepareStatement(query);
+			stmt.setString(1, a.getText());
+			stmt.setString(2, b.getText());
+			stmt.setString(3, c.getText());
+			stmt.setString(4, c.getText());
+			stmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
 	}
 
 	protected Boolean getresult(String id) throws SQLException {

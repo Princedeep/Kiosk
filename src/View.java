@@ -17,20 +17,19 @@ import javax.swing.JTextField;
 public class View {
 	private static JPanel panel = new JPanel();
 	static Statement st;
-	public static JFrame frame = new JFrame("Algonquin College Kiosk");// Creating new frame
+	public static JFrame frame = new JFrame("Algonquin College Kiosk");// Creating
+																		// new
+																		// frame
 	static JTextField Id = new JTextField(8);
-
-	public View() {
-
-	}
 
 	public void getView() {
 		Validations v = new Validations();
 		frame.setSize(500, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Code to exit main frame
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Code to exit
+																// main frame
 
 		frame.add(panel);// Adding Panel to frame
-		panel.setLayout(null);//
+		panel.setLayout(null);
 
 		/**
 		 * Creating labels for user and password
@@ -62,6 +61,7 @@ public class View {
 		 * Making everything in frame visible to user
 		 */
 
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		frame.setVisible(true);
 		frame.invalidate();
 		frame.validate();

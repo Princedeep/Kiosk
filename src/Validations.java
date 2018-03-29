@@ -74,9 +74,14 @@ public class Validations {
 						switch (loginAccount) {
 						case 1:
 							JOptionPane.showMessageDialog(null, " Admin Login Successfull");
+							AdminPanel a = new AdminPanel();
+							a.AdminPanel();
 							break;
 						case 2:
 							JOptionPane.showMessageDialog(null, " Student Login Successfull");
+							SplashPanel s = new SplashPanel();
+							s.SplashPanel();
+
 							break;
 						case 3:
 							JOptionPane.showMessageDialog(null, " Professor Login Successfull");
