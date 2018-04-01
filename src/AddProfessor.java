@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,7 @@ import javax.swing.JTextField;
 
 import javafx.embed.swing.JFXPanel;
 
-public class AddStudent extends JFXPanel {
+public class AddProfessor extends JFXPanel {
 	/**
 	 * 
 	 */
@@ -24,17 +23,17 @@ public class AddStudent extends JFXPanel {
 	private JTextField textField4;
 	private JTextField textField5;
 	Database db = new Database();
-	StudentDb db2 = new StudentDb();
-	JButton btnAddStudent = new JButton("Add Student");
+	ProfessorDb db2 = new ProfessorDb();
+	JButton btnAddProfessor = new JButton("Add Professor");
 	Validations v = new Validations();
-	private JButton btnDeleteStu;
-	private JButton btnUpdateStu;
+	private JButton btnDeleteProf;
+	private JButton btnUpdateProf;
 	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public AddStudent() {
+	public AddProfessor() {
 
 		setLayout(null);
 
@@ -42,17 +41,17 @@ public class AddStudent extends JFXPanel {
 		lblNewLabel.setBounds(10, 291, 150, 70);
 		add(lblNewLabel);
 
-		JLabel lblEnterStudentEmail = new JLabel("Enter student name");
-		lblEnterStudentEmail.setBounds(10, 327, 150, 70);
-		add(lblEnterStudentEmail);
+		JLabel lblEnterProfessorEmail = new JLabel("Enter Professor name");
+		lblEnterProfessorEmail.setBounds(10, 327, 150, 70);
+		add(lblEnterProfessorEmail);
 
 		JLabel lblEnter = new JLabel("Enter Password ");
 		lblEnter.setBounds(10, 362, 150, 70);
 		add(lblEnter);
 
-		JLabel lblEnterStudentName = new JLabel("Enter id ");
-		lblEnterStudentName.setBounds(10, 390, 150, 80);
-		add(lblEnterStudentName);
+		JLabel lblEnterProfessorName = new JLabel("Enter id ");
+		lblEnterProfessorName.setBounds(10, 390, 150, 80);
+		add(lblEnterProfessorName);
 
 		JLabel ld = new JLabel("Enter email ");
 		ld.setBounds(10, 428, 150, 80);
@@ -85,28 +84,31 @@ public class AddStudent extends JFXPanel {
 
 		v.validateId(textField4);
 
-		btnAddStudent.setBounds(313, 315, 150, 23);
-		add(btnAddStudent);
+		btnAddProfessor.setBounds(313, 315, 150, 23);
+		add(btnAddProfessor);
 
-		btnDeleteStu = new JButton("Delete Student");
-		btnDeleteStu.setBounds(313, 386, 150, 23);
-		add(btnDeleteStu);
-		btnDeleteStu.addActionListener(new ActionListener() {
+		btnDeleteProf = new JButton("Delete Professor");
+		btnDeleteProf.setBounds(313, 386, 150, 23);
+		add(btnDeleteProf);
+		btnDeleteProf.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
 						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.deleteStudent(textField4);
+					db2.deleteProfessor(textField4);
 					db2.FillTable(table);
 				}
+				// TODO Auto-generated method stub
+
 			}
 		});
 
-		btnUpdateStu = new JButton("Update Student");
-		btnUpdateStu.setBounds(313, 457, 150, 23);
-		add(btnUpdateStu);
+		btnUpdateProf = new JButton("Update Professor");
+		btnUpdateProf.setBounds(313, 457, 150, 23);
+		add(btnUpdateProf);
 
 		table = new JTable();
-		table.setFont(new Font("Arial", Font.PLAIN, 14));
+
 		table.setBounds(6, 8, 520, 240);
 		table.setBackground(Color.WHITE);
 		table.setForeground(SystemColor.desktop);
@@ -116,19 +118,21 @@ public class AddStudent extends JFXPanel {
 		scrollPane.setBounds(10, 11, 705, 282);
 		scrollPane.setVisible(true);
 		add(scrollPane);
-		btnUpdateStu.addActionListener(new ActionListener() {
+
+		btnUpdateProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
 						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.updateStu(textField, textField2, textField3, textField4, textField5);
+					db2.updateProf(textField, textField2, textField3, textField4, textField5);
 					db2.FillTable(table);
 				}
 			}
 		});
 
-		btnAddStudent.addActionListener(new ActionListener() {
+		btnAddProfessor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
 						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
 
