@@ -28,8 +28,7 @@ import net.proteanit.sql.DbUtils;
 public class NotificationStudent extends JPanel {
 	GridLayout layout = new GridLayout(4, 1);
 	JLabel text = new JLabel("Notification");
-	JButton btnNew = new JButton("New Notification");
-	JButton btnDel = new JButton("Delete Row");
+	JButton btnClear = new JButton("Clear Notificaiton");
 	JTable table = new JTable();
 	String details;
 	List<Object[]> data = new ArrayList<Object[]>();
@@ -79,19 +78,34 @@ public class NotificationStudent extends JPanel {
 		table.setCellSelectionEnabled(true);
 		ListSelectionModel cellSelectionModel = table.getSelectionModel();
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		
+		add (btnClear);
 		add(table);
 		
 		// Populate the table
 		dbLoad();
 		populateTable();
 		
+		btnClear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					int selectedRowIndex = table.getSelectedRow();	
+					clearNotification();
+					model.removeRow(selectedRowIndex);
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		
 	}
 	public void dbLoad(){
 		try{
 			con = getConnection();
 			
-			String readQuery = "SELECT * FROM MESSAGE_STORE";
+			String readQuery = "SELECT * FROM MESSAGE_STORE WHERE check_read = false";
 			pstmt = con.prepareStatement(readQuery);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -117,7 +131,7 @@ public class NotificationStudent extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
-			pstmt = con.prepareStatement("SELECT message FROM message_store");
+			pstmt = con.prepareStatement("SELECT message FROM message_store WHERE check_read = false");
 			
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
@@ -130,6 +144,27 @@ public class NotificationStudent extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+	public void clearNotification(){
+		try {
+			int selectedRowIndex = table.getSelectedRow();
+			con = getConnection();
+			
+			// Select all records from message_store
+			pstmt = con.prepareStatement("UPDATE message_store set check_read = true WHERE id = ?");
+						
+			// Set int to the id of the selected message
+			Object[] selectedRow = data.get(selectedRowIndex);
+			int id = (int) selectedRow[0];
+			pstmt.setInt(1, id);
+			// Execute query
+			pstmt.executeUpdate();		
+			data.remove(selectedRowIndex);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dbLoad();
+		populateTable();
+	}
 	
 }
