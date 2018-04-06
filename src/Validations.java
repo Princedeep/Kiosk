@@ -54,12 +54,9 @@ public class Validations {
 		java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(passwordFormat);
 		java.util.regex.Matcher m = pattern.matcher(f.getText());
 		if (!m.matches()) {
-			JOptionPane.showMessageDialog(null, "Please enter the valid Password. Password policy is:" + " " + ""
-					+ "1. A digit must occur at least once\n" + "2.  A lower case letter must occur at least once\n"
-					+ "3. An upper case letter must occur at least once\n"
-					+ "4. A special character must occur at least once\n"
-					+ "5. No whitespace allowed in the entire string\n" + "" + "6. At least 8 characters", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,
+					"Password must contains a digit, a lower case, An upper case letter , A special character ,At least 8 characters",
+					"Error", JOptionPane.ERROR_MESSAGE);
 		}
 		return m.matches();
 	}
@@ -69,9 +66,8 @@ public class Validations {
 	 * Validation for empty fields in student and professor window
 	 */
 
-	public boolean validatefields(JTextField a, JTextField b, JTextField c, JTextField d, JTextField e) {
-		if (a.getText().isEmpty() || b.getText().isEmpty() || c.getText().isEmpty() || d.getText().isEmpty()
-				|| e.getText().isEmpty()) {
+	public boolean validatefields(JTextField a, JTextField b, JTextField c) {
+		if (a.getText().isEmpty() || b.getText().isEmpty() || c.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Fill all fields", "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
@@ -87,9 +83,11 @@ public class Validations {
 	public void validateId(JTextField Id) {
 		Id.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+				char cha = e.getKeyChar();
+				if (!((cha >= '0') && (cha <= '9'))) {
 
+					e.consume();
+				} else if ((cha == KeyEvent.VK_BACK_SPACE) || (cha == KeyEvent.VK_DELETE)) {
 					e.consume();
 				} else if (Id.getText().length() >= 8) {
 					e.consume();

@@ -1,6 +1,6 @@
 
 /* File: View.java
- * Authors: Adam , Ivan, Princedeep
+ * Authors:  Princedeep
  * Date Last Modified: March 17, 2018
  * Description - This class creates main gui which has elements like
  * labels, text field and button. This is login screen.

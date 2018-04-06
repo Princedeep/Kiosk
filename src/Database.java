@@ -15,9 +15,9 @@ import java.sql.SQLException;
 public class Database {
 	private int recordsInserted; // Integer to keep track of record inserted
 	private static Connection con = null; // Connection variable used for creating connection
-	private static String connectionString = "jdbc:mysql://localhost/info"; // String variable for connnection url
-	private static String username = "assignment1"; // String variable for Username of database
-	private static String password = "password"; // String variable for password of database
+	private static String connectionString = "jdbc:mysql://localhost/kiosk"; // String variable for connnection url
+	private static String username = "root"; // String variable for Username of database
+	private static String password = "root"; // String variable for password of database
 	private String a = null;
 
 	// private static PreparedStatement pstmt = null; // Variable for sql prepared
@@ -96,7 +96,7 @@ public class Database {
 		// -- Admin 1
 		Boolean idFound = false;
 		ResultSet exeAdmin;
-		String queryAdmin = "Select * from admin where name=? and password=? and id=? ";
+		String queryAdmin = "Select * from admin where AdminName=? and Password=? and AdminID=? ";
 		java.sql.PreparedStatement stmtAdmin = con.prepareStatement(queryAdmin);
 		stmtAdmin.setString(1, name);
 		stmtAdmin.setString(2, pass);
@@ -106,7 +106,7 @@ public class Database {
 
 		// -- Student 2
 		ResultSet exeStudent;
-		String queryStudent = "Select * from student where name=? and password=? and id=?";
+		String queryStudent = "Select * from student where StudentName=? and Password=? and StudentID=?";
 		java.sql.PreparedStatement stmtStudent = con.prepareStatement(queryStudent);
 		char[] password = pass.toCharArray();
 		stmtStudent.setString(1, name);
@@ -116,7 +116,7 @@ public class Database {
 
 		// -- Proff 3
 		ResultSet exeProf;
-		String queryProff = "Select * from professors where name=?and password=? and id=? ";
+		String queryProff = "Select * from professor where ProfessorName=? and Password=? and ProfessorID=? ";
 		java.sql.PreparedStatement stmtProff = con.prepareStatement(queryProff);
 		stmtProff.setString(1, name);
 		stmtProff.setString(2, md5(password));

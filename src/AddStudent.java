@@ -6,22 +6,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import javafx.embed.swing.JFXPanel;
-
-public class AddStudent extends JFXPanel {
+public class AddStudent extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField2;
-	private JPasswordField textField3;
-	private JTextField textField4;
+	private JPasswordField textField4;
+	private JTextField textField3;
 	private JTextField textField5;
 	Database db = new Database();
 	StudentDb db2 = new StudentDb();
@@ -38,25 +37,21 @@ public class AddStudent extends JFXPanel {
 
 		setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Enter Course id");
+		JLabel lblNewLabel = new JLabel("Enter  id");
 		lblNewLabel.setBounds(10, 291, 150, 70);
 		add(lblNewLabel);
 
-		JLabel lblEnterStudentEmail = new JLabel("Enter student name");
+		JLabel lblEnterStudentEmail = new JLabel("Enter Student name");
 		lblEnterStudentEmail.setBounds(10, 327, 150, 70);
 		add(lblEnterStudentEmail);
 
-		JLabel lblEnter = new JLabel("Enter Password ");
+		JLabel lblEnter = new JLabel("Enter Email ");
 		lblEnter.setBounds(10, 362, 150, 70);
 		add(lblEnter);
 
-		JLabel lblEnterStudentName = new JLabel("Enter id ");
+		JLabel lblEnterStudentName = new JLabel("Enter Password ");
 		lblEnterStudentName.setBounds(10, 390, 150, 80);
 		add(lblEnterStudentName);
-
-		JLabel ld = new JLabel("Enter email ");
-		ld.setBounds(10, 428, 150, 80);
-		add(ld);
 
 		textField = new JTextField();
 		textField.setBounds(141, 316, 100, 20);
@@ -68,22 +63,17 @@ public class AddStudent extends JFXPanel {
 		add(textField2);
 		textField2.setColumns(10);
 
-		textField3 = new JPasswordField();
+		textField4 = new JPasswordField();
+		textField4.setBounds(141, 422, 100, 20);
+		add(textField4);
+		textField4.setColumns(10);
+
+		textField3 = new JTextField();
 		textField3.setBounds(141, 387, 100, 20);
 		add(textField3);
 		textField3.setColumns(10);
 
-		textField4 = new JTextField();
-		textField4.setBounds(141, 422, 100, 20);
-		add(textField4);
-		textField3.setColumns(10);
-
-		textField5 = new JTextField();
-		textField5.setBounds(141, 458, 100, 20);
-		add(textField5);
-		textField3.setColumns(10);
-
-		v.validateId(textField4);
+		v.validateId(textField);
 
 		btnAddStudent.setBounds(313, 315, 150, 23);
 		add(btnAddStudent);
@@ -93,9 +83,9 @@ public class AddStudent extends JFXPanel {
 		add(btnDeleteStu);
 		btnDeleteStu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.deleteStudent(textField4);
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
+					db2.deleteStudent(textField);
 					db2.FillTable(table);
 				}
 			}
@@ -118,9 +108,9 @@ public class AddStudent extends JFXPanel {
 		add(scrollPane);
 		btnUpdateStu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.updateStu(textField, textField2, textField3, textField4, textField5);
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
+					db2.updateStu(textField, textField2, textField3, textField4);
 					db2.FillTable(table);
 				}
 			}
@@ -129,10 +119,10 @@ public class AddStudent extends JFXPanel {
 		btnAddStudent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
 
-					db2.InsertData(textField, textField2, textField3, textField4, textField5);
+					db2.InsertData(textField, textField2, textField3, textField4);
 					db2.FillTable(table);
 				}
 			}

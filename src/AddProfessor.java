@@ -1,3 +1,12 @@
+
+/**
+ * File: Add Professor
+ * Author: Princedeep Singh
+ * Last Modified:
+ * Description: This is class which admin is using to perform C.R.U.D operations on professor records
+ * 
+ */
+
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -19,8 +28,8 @@ public class AddProfessor extends JFXPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JTextField textField2;
-	private JPasswordField textField3;
-	private JTextField textField4;
+	private JPasswordField textField4;
+	private JTextField textField3;
 	private JTextField textField5;
 	Database db = new Database();
 	ProfessorDb db2 = new ProfessorDb();
@@ -37,7 +46,7 @@ public class AddProfessor extends JFXPanel {
 
 		setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Enter Course id");
+		JLabel lblNewLabel = new JLabel("Enter id");
 		lblNewLabel.setBounds(10, 291, 150, 70);
 		add(lblNewLabel);
 
@@ -45,17 +54,13 @@ public class AddProfessor extends JFXPanel {
 		lblEnterProfessorEmail.setBounds(10, 327, 150, 70);
 		add(lblEnterProfessorEmail);
 
-		JLabel lblEnter = new JLabel("Enter Password ");
+		JLabel lblEnter = new JLabel("Enter Email ");
 		lblEnter.setBounds(10, 362, 150, 70);
 		add(lblEnter);
 
-		JLabel lblEnterProfessorName = new JLabel("Enter id ");
+		JLabel lblEnterProfessorName = new JLabel("Enter Password ");
 		lblEnterProfessorName.setBounds(10, 390, 150, 80);
 		add(lblEnterProfessorName);
-
-		JLabel ld = new JLabel("Enter email ");
-		ld.setBounds(10, 428, 150, 80);
-		add(ld);
 
 		textField = new JTextField();
 		textField.setBounds(141, 316, 100, 20);
@@ -67,22 +72,17 @@ public class AddProfessor extends JFXPanel {
 		add(textField2);
 		textField2.setColumns(10);
 
-		textField3 = new JPasswordField();
+		textField4 = new JPasswordField();
+		textField4.setBounds(141, 422, 100, 20);
+		add(textField4);
+		textField4.setColumns(10);
+
+		textField3 = new JTextField();
 		textField3.setBounds(141, 387, 100, 20);
 		add(textField3);
 		textField3.setColumns(10);
 
-		textField4 = new JTextField();
-		textField4.setBounds(141, 422, 100, 20);
-		add(textField4);
-		textField3.setColumns(10);
-
-		textField5 = new JTextField();
-		textField5.setBounds(141, 458, 100, 20);
-		add(textField5);
-		textField3.setColumns(10);
-
-		v.validateId(textField4);
+		v.validateId(textField);
 
 		btnAddProfessor.setBounds(313, 315, 150, 23);
 		add(btnAddProfessor);
@@ -93,9 +93,9 @@ public class AddProfessor extends JFXPanel {
 		btnDeleteProf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.deleteProfessor(textField4);
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
+					db2.deleteProfessor(textField);
 					db2.FillTable(table);
 				}
 				// TODO Auto-generated method stub
@@ -121,9 +121,9 @@ public class AddProfessor extends JFXPanel {
 
 		btnUpdateProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
-					db2.updateProf(textField, textField2, textField3, textField4, textField5);
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
+					db2.updateProf(textField, textField2, textField3, textField4);
 					db2.FillTable(table);
 				}
 			}
@@ -133,10 +133,10 @@ public class AddProfessor extends JFXPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (v.validatefields(textField, textField2, textField3, textField4, textField5)
-						&& v.isValidEmailAddress(textField5.getText()) && v.isValidPassword(textField3)) {
+				if (v.validatefields(textField, textField2, textField3) && v.isValidEmailAddress(textField3.getText())
+						&& v.isValidPassword(textField4)) {
 
-					db2.InsertData(textField, textField2, textField3, textField4, textField5);
+					db2.InsertData(textField, textField2, textField3, textField4);
 					db2.FillTable(table);
 				}
 			}
