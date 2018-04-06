@@ -47,7 +47,7 @@ public class NotificationStudent extends JPanel {
 	JTextField messageField = new JTextField();
 	private Connection con = null;
 	PreparedStatement pstmt = null;
-	private final String connectionString = "jdbc:mysql://localhost/message_store?useSSL=false";
+	private final String connectionString = "jdbc:mysql://localhost/final?useSSL=false";
 	private final String username = "message";
 	private final String password = "password";
 	
@@ -105,7 +105,7 @@ public class NotificationStudent extends JPanel {
 		try{
 			con = getConnection();
 			
-			String readQuery = "SELECT * FROM MESSAGE_STORE WHERE check_read = false";
+			String readQuery = "SELECT * FROM notifications WHERE Check_Read = false";
 			pstmt = con.prepareStatement(readQuery);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -131,7 +131,7 @@ public class NotificationStudent extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
-			pstmt = con.prepareStatement("SELECT message FROM message_store WHERE check_read = false");
+			pstmt = con.prepareStatement("SELECT Message FROM notifications WHERE Check_Read = false");
 			
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
@@ -150,7 +150,7 @@ public class NotificationStudent extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
-			pstmt = con.prepareStatement("UPDATE message_store set check_read = true WHERE id = ?");
+			pstmt = con.prepareStatement("UPDATE notifications set Check_Read = true WHERE id = ?");
 						
 			// Set int to the id of the selected message
 			Object[] selectedRow = data.get(selectedRowIndex);
