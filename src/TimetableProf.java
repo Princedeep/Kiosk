@@ -7,9 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -23,12 +29,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-public class TimetablePanel extends JPanel {
+import net.proteanit.sql.DbUtils;
+
+public class TimetableProf extends JPanel {
 	GridLayout layout = new GridLayout(4, 1);
 	JLabel text = new JLabel("Timetable");
 	JButton btnLoad = new JButton("Load Timetable");
@@ -36,12 +42,14 @@ public class TimetablePanel extends JPanel {
 	JButton btnExport = new JButton("Export Timetable");
 	JButton btnEdit = new JButton("Edit");
 	JButton btnDel = new JButton("Delete Row");
+	JButton btnSave = new JButton("Save Changes");
 	JFileChooser fc = new JFileChooser();
 	JTable table = new JTable();
 	String details;
 	File file;
 	File outputFile;
-	Object[][] data;
+	List<String[]> data = new ArrayList<String[]>();
+	String [] rowData;
 	String columnNames[] = {"Subject", "Start Date", "Start Time", "End Date", "End Time"};
 	String HEADER = ("Subject, Start Date, Start Time, End Date, End Time");
 	DefaultTableModel model = new DefaultTableModel(0, 0){
@@ -60,10 +68,16 @@ public class TimetablePanel extends JPanel {
 	JFormattedTextField startTimeField = new JFormattedTextField(timeFormat);
 	JFormattedTextField endDateField = new JFormattedTextField(dateFormat);
 	JFormattedTextField endTimeField = new JFormattedTextField(timeFormat);
+	
+	private Connection con = null;
+	PreparedStatement pstmt = null;
+	private final String connectionString = "jdbc:mysql://localhost/message_store?useSSL=false";
+	private final String username = "message";
+	private final String password = "password";
 
 	FileNameExtensionFilter filter = new FileNameExtensionFilter("*.csv", "csv");
 
-	TimetablePanel(){	
+	TimetableProf(){	
 		JFrame window = (JFrame) SwingUtilities.getWindowAncestor(this);
 		this.setLayout(layout);
 		fc.addChoosableFileFilter(filter);
@@ -72,7 +86,8 @@ public class TimetablePanel extends JPanel {
 		add(btnAdd);
 		add(btnExport);
 		add(btnEdit);
-		//add(btnDel);
+		add(btnDel);
+		add(btnSave);
 
 		model.setColumnIdentifiers(columnNames);
 
@@ -82,6 +97,9 @@ public class TimetablePanel extends JPanel {
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		add(table);
+		
+		initialLoad();
+		
 		btnLoad.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -123,16 +141,14 @@ public class TimetablePanel extends JPanel {
 					endTime = JOptionPane.showInputDialog("Enter an End Time to add:");
 				}
 
-				Object rowData[] = new Object[5];
+				String rowData[] = new String[5];
 				rowData[0] = subject; 
 				rowData[1] = startDate; 
 				rowData[2] = startTime; 
 				rowData[3] = endDate; 
 				rowData[4] = endTime; 
 				model.addRow(rowData);
-				// Create JOptionPane or other method of receiving user input
-				// Use that input to add a new row to the model by populating the above Object array
-				// When the array is populated call the model.addRow() method to insert the new row
+				data.add(rowData);
 			}
 		}); 
 		
@@ -156,7 +172,7 @@ public class TimetablePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Vector<String> vector = new Vector<String>();
 				vector = (Vector<String>) model.getDataVector().elementAt(table.getSelectedRow());
-				String [] rowData = vector.toArray(new String[vector.size()]);
+				rowData = vector.toArray(new String[vector.size()]);
 				
 				subjectField.setText(rowData[0]);
 				startDateField.setText(rowData[1]);
@@ -179,6 +195,8 @@ public class TimetablePanel extends JPanel {
 				for(int i = 0; i < colCount; i++){
 					model.setValueAt(rowData[i], row, i);
 				}
+				data.remove(row);
+				data.add(row, rowData);
 			}
 		}); 
 		btnExport.addActionListener(new ActionListener(){
@@ -186,7 +204,6 @@ public class TimetablePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					fc.showSaveDialog(getParent());
-					
 					file = fc.getSelectedFile();		
 					FileWriter fileWriter = new FileWriter(file, false);
 					//fileWriter.append(HEADER);
@@ -205,31 +222,126 @@ public class TimetablePanel extends JPanel {
 			}
 		});
 		
-		/*btnDel.addActionListener(new ActionListener() {
+		btnDel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
 					int selectedRowIndex = table.getSelectedRow();
-					
-					subjectField.setText(model.getValueAt(selectedRowIndex, 0).toString());
-					startDateField.setText(model.getValueAt(selectedRowIndex, 1).toString());
-					startTimeField.setText(model.getValueAt(selectedRowIndex, 2).toString());
-					endDateField.setText(model.getValueAt(selectedRowIndex, 3).toString());
-					endTimeField.setText(model.getValueAt(selectedRowIndex, 4).toString());
-				
-					
-					model.removeRow(table.getSelectedRow());
+					model.removeRow(selectedRowIndex);
+					data.remove(selectedRowIndex);
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}
-				
 			}
-			
-		});*/
+		});	
 		
-		
+		btnSave.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					saveTimetable();
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
 	}
+	
+	public void refreshData(){
+		data.removeAll(data);
+		
+		for(int row = 0; row < model.getRowCount(); row++){
+			for(int col = 0; col < model.getColumnCount(); col++){
+				rowData[row] = (String) model.getValueAt(row, col);
+			}
+			data.add(rowData);
+		}
+	}
+	
+	public void saveTimetable(){
+		try {
+			con = getConnection();
+			
+			// Drop the table in the database
+			pstmt = con.prepareStatement("DROP TABLE IF EXISTS TIMETABLE");
+			
+			// Execute query
+			pstmt.executeUpdate();
+			
+			// Create new table, using records stored in the GUI table
+			String createQuery = "CREATE TABLE TIMETABLE ("
+					+ "Subject VARCHAR(50), "
+					+ "StartDate VARCHAR(50),"
+					+ "StartTime VARCHAR(50),"
+					+ "EndDate VARCHAR(50),"
+					+ "EndTime VARCHAR(50));" ;
+			
+			pstmt = con.prepareStatement(createQuery);
+			pstmt.executeUpdate();
+			
+			// Insert records into database
+			for(int row = 0; row < model.getRowCount(); row++){
+				String insertQuery = "INSERT INTO TIMETABLE VALUES (?, ?, ?, ?, ?);";
+				pstmt = con.prepareStatement(insertQuery);
+				String[] rowData = data.get(row);
+				pstmt.setString(1, rowData[0]);
+				pstmt.setString(2, rowData[1]);
+				pstmt.setString(3, rowData[2]);
+				pstmt.setString(4, rowData[3]);
+				pstmt.setString(5, rowData[4]);
+				System.out.println(pstmt);
+				pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public Connection getConnection() throws SQLException{
+		try {
+		if(con != null){
+			System.out.println("Cannot create new connection, one exists already");
+		}
+		else{
+			con = DriverManager.getConnection(connectionString, username, password);
+		}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+			throw ex;
+		}
+		return con;
+	}
+
+	public void initialLoad(){
+		try{
+			con = getConnection();
+			
+			String readQuery = "SELECT * FROM TIMETABLE";
+			pstmt = con.prepareStatement(readQuery);
+			
+			ResultSet rs = pstmt.executeQuery();
+			System.out.println(rs);
+			
+			
+			// Iterate through the result set, adding to the arraylist
+			while(rs.next()){
+				String subject = rs.getString("SUBJECT");
+				String startDate = rs.getString("STARTDATE");
+				String startTime = rs.getString("STARTTIME");
+				String endDate = rs.getString("ENDDATE");
+				String endTime = rs.getString("ENDTIME");
+				data.add(new String[]{subject, startDate, startTime, endDate, endTime});
+				model.addRow(new String[]{subject, startDate, startTime, endDate, endTime});
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void  CSVReader(){
 		try{
 			FileReader fr = new FileReader(file);
@@ -238,14 +350,13 @@ public class TimetablePanel extends JPanel {
 			Object[] lines = br.lines().toArray();
 
 			for(int i = 0; i <lines.length; i++){
-				String[] row = lines[i].toString().split(",");
-				model.addRow(row);				
+				rowData = lines[i].toString().split(",");
+				model.addRow(rowData);		
+				data.add(rowData);
 				model.fireTableDataChanged();
 			}
-
 		} catch (FileNotFoundException e){
 
 		}
 	}
 }
-

@@ -48,7 +48,9 @@ public class NotificationProf extends JPanel {
 	JTextField messageField = new JTextField();
 	private Connection con = null;
 	PreparedStatement pstmt = null;
+
 	private final String connectionString = "jdbc:mysql://localhost/final?useSSL=false";
+
 	private final String username = "message";
 	private final String password = "password";
 	
@@ -99,7 +101,9 @@ public class NotificationProf extends JPanel {
 
 				try {
 					con = getConnection();
+
 					pstmt = con.prepareStatement("INSERT INTO notifications (Message, Check_Read) VALUES (?, false)");
+
 					pstmt.setString(1, message);
 					pstmt.executeUpdate();
 					dbLoad();
@@ -131,7 +135,9 @@ public class NotificationProf extends JPanel {
 		try{
 			con = getConnection();
 			
+
 			String readQuery = "SELECT * FROM notifications";
+
 			pstmt = con.prepareStatement(readQuery);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -157,7 +163,9 @@ public class NotificationProf extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
+
 			pstmt = con.prepareStatement("SELECT Message FROM notifications");
+
 			
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
@@ -177,7 +185,9 @@ public class NotificationProf extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
+
 			pstmt = con.prepareStatement("DELETE FROM notifications WHERE id = ?");
+
 						
 			// Set int to the id of the selected message
 			Object[] selectedRow = data.get(selectedRowIndex);
