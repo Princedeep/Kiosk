@@ -25,11 +25,10 @@ import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
 
-public class NotificationProf extends JPanel {
+public class NotificationStudent extends JPanel {
 	GridLayout layout = new GridLayout(4, 1);
 	JLabel text = new JLabel("Notification");
-	JButton btnNew = new JButton("New Notification");
-	JButton btnDel = new JButton("Delete Row");
+	JButton btnClear = new JButton("Clear Notificaiton");
 	JTable table = new JTable();
 	String details;
 	List<Object[]> data = new ArrayList<Object[]>();
@@ -48,9 +47,7 @@ public class NotificationProf extends JPanel {
 	JTextField messageField = new JTextField();
 	private Connection con = null;
 	PreparedStatement pstmt = null;
-
 	private final String connectionString = "jdbc:mysql://localhost/final?useSSL=false";
-
 	private final String username = "message";
 	private final String password = "password";
 	
@@ -71,73 +68,44 @@ public class NotificationProf extends JPanel {
 	}
 
 	
-	NotificationProf(){	
+	NotificationStudent(){	
 		JFrame window = (JFrame) SwingUtilities.getWindowAncestor(this);
 		this.setLayout(layout);
-		add(btnNew);
-		add(btnDel);
-
+		
 		model.setColumnIdentifiers(columnNames);
 
 		table.setModel(model);
 		table.setCellSelectionEnabled(true);
 		ListSelectionModel cellSelectionModel = table.getSelectionModel();
 		cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+		
+		add (btnClear);
 		add(table);
 		
 		// Populate the table
 		dbLoad();
 		populateTable();
 		
-		btnNew.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String message = JOptionPane.showInputDialog("Enter message:");
-				while(message.isEmpty()){
-					JOptionPane.showMessageDialog(btnNew, "Do not leave message blank");
-					message = JOptionPane.showInputDialog("Enter message: ");
-				}
-
-				try {
-					con = getConnection();
-
-					pstmt = con.prepareStatement("INSERT INTO notifications (Message, Check_Read) VALUES (?, false)");
-
-					pstmt.setString(1, message);
-					pstmt.executeUpdate();
-					dbLoad();
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				// Populate the table with records from the database
-				populateTable();
-			}
-		}); 
-		
-		btnDel.addActionListener(new ActionListener() {
+		btnClear.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					DefaultTableModel model = (DefaultTableModel) table.getModel();
 					int selectedRowIndex = table.getSelectedRow();	
-					deleteRecord();
+					clearNotification();
 					model.removeRow(selectedRowIndex);
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}
 			}
 		});
+		
 	}
 	public void dbLoad(){
 		try{
 			con = getConnection();
 			
-
-			String readQuery = "SELECT * FROM notifications";
-
+			String readQuery = "SELECT * FROM notifications WHERE Check_Read = false";
 			pstmt = con.prepareStatement(readQuery);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -163,9 +131,7 @@ public class NotificationProf extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
-
-			pstmt = con.prepareStatement("SELECT Message FROM notifications");
-
+			pstmt = con.prepareStatement("SELECT Message FROM notifications WHERE Check_Read = false");
 			
 			// Execute query
 			ResultSet rs = pstmt.executeQuery();
@@ -178,16 +144,13 @@ public class NotificationProf extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	public void deleteRecord(){
+	public void clearNotification(){
 		try {
 			int selectedRowIndex = table.getSelectedRow();
 			con = getConnection();
 			
 			// Select all records from message_store
-
-			pstmt = con.prepareStatement("DELETE FROM notifications WHERE id = ?");
-
+			pstmt = con.prepareStatement("UPDATE notifications set Check_Read = true WHERE id = ?");
 						
 			// Set int to the id of the selected message
 			Object[] selectedRow = data.get(selectedRowIndex);
@@ -200,6 +163,8 @@ public class NotificationProf extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		dbLoad();
 		populateTable();
 	}
+	
 }
