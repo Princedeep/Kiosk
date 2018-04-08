@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 /* File: Main.java
  * Authors: Princedeep Singh and Jay Patel
  * Date Last Modified: March 17, 2018
@@ -13,10 +16,9 @@ public class Main {
 
 	//
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		View firstView = new View();
 
-		AppointmentInterface appoint = new AppointmentInterface();
 		firstView.getView();
 
 	}

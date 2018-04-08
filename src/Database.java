@@ -1,9 +1,10 @@
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JTextField;
 
 /* File: Database.java
  * Author: Princedeep Singh
@@ -14,9 +15,9 @@ import javax.swing.JTextField;
 public class Database {
 	private int recordsInserted; // Integer to keep track of record inserted
 	private static Connection con = null; // Connection variable used for creating connection
-	private static String connectionString = "jdbc:mysql://localhost/info"; // String variable for connnection url
-	private static String username = "assignment1"; // String variable for Username of database
-	private static String password = "password"; // String variable for password of database
+	private static String connectionString = "jdbc:mysql://localhost/kiosk?autoReconnect=true&useSSL=false"; // String variable for connnection url
+	private static String username = "root"; // String variable for Username of database
+	private static String password = "omshanti"; // String variable for password of database
 	private String a = null;
 
 	// private static PreparedStatement pstmt = null; // Variable for sql prepared
@@ -70,46 +71,56 @@ public class Database {
 		}
 	}
 
-	protected void InsertData(JTextField a, JTextField b, JTextField c, JTextField d) {
+	/**
+	 * 
+	 * Method to hash password
+	 * 
+	 */
+	private String md5(char[] c) {
 		try {
-			con = DriverManager.getConnection(connectionString, username, password);
-			String query = "insert into student(Id,Course_Id,Name,Email)  Values(?,?,?,?)";
-			java.sql.PreparedStatement stmt = con.prepareStatement(query);
-			stmt.setString(1, a.getText());
-			stmt.setString(2, b.getText());
-			stmt.setString(3, c.getText());
-			stmt.setString(4, c.getText());
-			stmt.executeUpdate();
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
+			MessageDigest dg = MessageDigest.getInstance("MD5");
+			dg.update((new String(c)).getBytes("UTF-8"));
+			String str = new String(dg.digest());
+			return str;
+		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return "";
 
 	}
 
-	protected Boolean getresult(String id) throws SQLException {
+	protected Boolean getresult(String name, String pass, String id) throws SQLException {
 		con = DriverManager.getConnection(connectionString, username, password);
 
 		// -- Admin 1
 		Boolean idFound = false;
 		ResultSet exeAdmin;
-		String queryAdmin = "Select * from admin where id=? ";
+		String queryAdmin = "Select * from admin where AdminName=? and Password=? and AdminID=? ";
 		java.sql.PreparedStatement stmtAdmin = con.prepareStatement(queryAdmin);
-		stmtAdmin.setString(1, id);
+		stmtAdmin.setString(1, name);
+		stmtAdmin.setString(2, pass);
+		stmtAdmin.setString(3, id);
+
 		exeAdmin = stmtAdmin.executeQuery();
 
 		// -- Student 2
 		ResultSet exeStudent;
-		String queryStudent = "Select * from student where id=? ";
+		String queryStudent = "Select * from student where StudentName=? and Password=? and StudentID=?";
 		java.sql.PreparedStatement stmtStudent = con.prepareStatement(queryStudent);
-		stmtStudent.setString(1, id);
+		char[] password = pass.toCharArray();
+		stmtStudent.setString(1, name);
+		stmtStudent.setString(2, md5(password));
+		stmtStudent.setString(3, id);
 		exeStudent = stmtStudent.executeQuery();
 
 		// -- Proff 3
 		ResultSet exeProf;
-		String queryProff = "Select * from professors where id=? ";
+		String queryProff = "Select * from professor where ProfessorName=? and Password=? and ProfessorID=? ";
 		java.sql.PreparedStatement stmtProff = con.prepareStatement(queryProff);
-		stmtProff.setString(1, id);
+		stmtProff.setString(1, name);
+		stmtProff.setString(2, md5(password));
+		stmtProff.setString(3, id);
 		exeProf = stmtProff.executeQuery();
 
 		if (exeAdmin.next() == true) {
@@ -128,5 +139,4 @@ public class Database {
 		return idFound;
 
 	}
-
 }
