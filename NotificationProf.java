@@ -49,10 +49,10 @@ public class NotificationProf extends JPanel {
 	private Connection con = null;
 	PreparedStatement pstmt = null;
 
-	private final String connectionString = "jdbc:mysql://localhost/final?useSSL=false";
+	private final String connectionString = "jdbc:mysql://localhost/kiosk?useSSL=false";
 
-	private final String username = "message";
-	private final String password = "password";
+	private final String username = "root";
+	private final String password = "death101";
 	
 	public Connection getConnection() throws SQLException{
 		try {
@@ -102,7 +102,7 @@ public class NotificationProf extends JPanel {
 				try {
 					con = getConnection();
 
-					pstmt = con.prepareStatement("INSERT INTO notifications (Message, Check_Read) VALUES (?, false)");
+					pstmt = con.prepareStatement("INSERT INTO notifications (CourseID, Message, Check_Read) VALUES (123, ?, false)");
 
 					pstmt.setString(1, message);
 					pstmt.executeUpdate();
@@ -146,11 +146,11 @@ public class NotificationProf extends JPanel {
 			
 			// Iterate through the result set, adding to the arraylist
 			while(rs.next()){
-				int id = rs.getInt("ID");
+				int CourseID = rs.getInt("COURSEID");
 				String message = rs.getString("MESSAGE");
 				boolean checkRead = rs.getBoolean("CHECK_READ");
-				data.add(new Object[]{id, message, checkRead});
-				model.addRow(new Object[]{id, message, checkRead});
+				data.add(new Object[]{CourseID, message, checkRead});
+				model.addRow(new Object[]{CourseID, message, checkRead});
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -186,7 +186,7 @@ public class NotificationProf extends JPanel {
 			
 			// Select all records from message_store
 
-			pstmt = con.prepareStatement("DELETE FROM notifications WHERE id = ?");
+			pstmt = con.prepareStatement("DELETE FROM notifications WHERE CourseID = ?");
 
 						
 			// Set int to the id of the selected message

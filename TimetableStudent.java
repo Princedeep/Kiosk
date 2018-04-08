@@ -34,9 +34,9 @@ public class TimetableStudent extends JPanel {
 	
 	private Connection con = null;
 	PreparedStatement pstmt = null;
-	private final String connectionString = "jdbc:mysql://localhost/message_store?useSSL=false";
-	private final String username = "message";
-	private final String password = "password";
+	private final String connectionString = "jdbc:mysql://localhost/kiosk?useSSL=false";
+	private final String username = "root";
+	private final String password = "death101";
 
 	TimetableStudent(){	
 		JFrame window = (JFrame) SwingUtilities.getWindowAncestor(this);

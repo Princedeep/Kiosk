@@ -12,18 +12,22 @@ public class StudentPanel{
 	JFrame window = new JFrame("Multiple Panels");
 	JPanel menuPanel = new JPanel(new GridLayout(3,1));
 	JPanel contentPanel = new JPanel();
-	JButton btnTimeTable = new JButton("Timetable");
+	JButton btnTimeTable = new JButton("Book Appointment");
+	JButton btnCancelAppointment = new JButton("Cancel an appointment");
 	
 	JButton btnNotification = new JButton("Notification");
-	TimetableStudent Timetable = new TimetableStudent();
+	//TimetableStudent Timetable = new TimetableStudent();
 	SchedulePanel ScheduleAppointment = new SchedulePanel();
-	NotificationProf NotificationProf = new NotificationProf();
+	//NotificationProf NotificationProf = new NotificationProf();
+	AppointmentInterface appointInt = new AppointmentInterface();
+	CancelAppointment cancelAppoint = new CancelAppointment();
 		
 	StudentPanel(){
 		window.setLayout(layout);
 		
 		menuPanel.add(btnTimeTable);
 		menuPanel.add(btnNotification);
+		menuPanel.add(btnCancelAppointment);
 		
 		window.add(menuPanel);
 		window.add(contentPanel);
@@ -38,7 +42,7 @@ public class StudentPanel{
 				window.getContentPane().removeAll();
 				window.repaint();
 				window.add(menuPanel);
-				window.add(Timetable);
+				window.add(appointInt);
 				window.revalidate();
 			}
 		}); 
@@ -49,7 +53,17 @@ public class StudentPanel{
 				window.getContentPane().removeAll();
 				window.repaint();
 				window.add(menuPanel);
-				window.add(NotificationProf);
+			//	window.add(NotificationProf);
+				window.revalidate();
+			}
+		});
+		btnCancelAppointment.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				window.getContentPane().removeAll();
+				window.repaint();
+				window.add(menuPanel);
+				window.add(cancelAppoint);
 				window.revalidate();
 			}
 		});

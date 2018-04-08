@@ -26,8 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class AppointmentInterface extends JFrame {
-	public static JFrame frame = new JFrame("Algonquin College Kiosk");
+public class AppointmentInterface extends JPanel{
+	//public static JFrame frame = new JFrame("Algonquin College Kiosk");
     private static final long serialVersionUID = 1L;
 	
     private static JPanel contentPane;
@@ -38,7 +38,6 @@ public class AppointmentInterface extends JFrame {
     JButton confirmButton;
     JButton dateButton;
     JDialog cancelDialog = new JDialog();
-    DateChooserPanel calendar = new DateChooserPanel();
     ImagePanel image = new ImagePanel();
     SplashPanel splashPanel = new SplashPanel();
 
@@ -64,57 +63,53 @@ public class AppointmentInterface extends JFrame {
     
     
 
-    public AppointmentInterface() throws Exception {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public AppointmentInterface() {
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new GridBagLayout());
-        setContentPane(contentPane);
+        //contentPane = new JPanel();
+        //contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        //contentPane.setLayout(new GridBagLayout());
+        //setContentPane(contentPane);
         
-        ImageIcon image = new ImageIcon("C:\\Users\\Brandon\\Pictures\\logo-algonquin");
+        //ImageIcon image = new ImageIcon("C:\\Users\\Brandon\\Pictures\\logo-algonquin");
 
-        JPanel panel = new JPanel();
-        contentPane.add(panel);
+       
+       
         GridBagLayout gbl_panel = new GridBagLayout();
         gbl_panel.columnWidths = new int[]{0, 0, 0};
         gbl_panel.rowHeights = new int[]{0, 0};
         gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
         gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-        panel.setLayout(gbl_panel);
+        setLayout(gbl_panel);
         
-        frame.setSize(1000, 300);
-    	frame.setVisible(true);
-    	frame.add(panel);
-        
-        JLabel imageLabel = new JLabel("", image, JLabel.CENTER);
-        panel.add(imageLabel);
+        JLabel imageLabel = new JLabel("", JLabel.CENTER);
+        add(imageLabel);
         
         JLabel profLabel = new JLabel("Professor's Email");
         GridBagConstraints gbcProfLabel = new GridBagConstraints();
         gbcProfLabel.gridx = 0;
         gbcProfLabel.gridy = 1;
-        panel.add(profLabel, gbcProfLabel);
+        add(profLabel, gbcProfLabel);
         
         JTextField profEmail = new JTextField();
         profEmail.setPreferredSize(new Dimension(300,25));
         GridBagConstraints gbcProfEmail = new GridBagConstraints();
         gbcProfEmail.gridx = 1;
         gbcProfEmail.gridy = 1;
-        panel.add(profEmail,gbcProfEmail);
+        add(profEmail,gbcProfEmail);
         
         JLabel reasonLabel = new JLabel("Reason for appointment?");
         GridBagConstraints gbcReasonLabel = new GridBagConstraints();
         gbcReasonLabel.gridx = 0;
         gbcReasonLabel.gridy = 3;
-        panel.add(reasonLabel,gbcReasonLabel);
+        add(reasonLabel,gbcReasonLabel);
         
         JTextField reasonText = new JTextField();
         reasonText.setPreferredSize(new Dimension(300,100));
         GridBagConstraints gbcReasonText = new GridBagConstraints();
         gbcReasonText.gridx = 1;
         gbcReasonText.gridy = 3;
-        panel.add(reasonText,gbcReasonText);
+        add(reasonText,gbcReasonText);
 
         JLabel appointLabel = new JLabel("Select appointment time");
         GridBagConstraints gbcAppoint = new GridBagConstraints();
@@ -122,7 +117,7 @@ public class AppointmentInterface extends JFrame {
         gbcAppoint.anchor = GridBagConstraints.EAST;
         gbcAppoint.gridx = 0;
         gbcAppoint.gridy = 0;
-        panel.add(appointLabel, gbcAppoint);
+        add(appointLabel, gbcAppoint);
 
         JComboBox comboBox = new JComboBox(appointTimes);
         comboBox.setSelectedIndex(1);
@@ -130,20 +125,20 @@ public class AppointmentInterface extends JFrame {
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBox.gridx = 1;
         gbc_comboBox.gridy = 0;
-        panel.add(comboBox, gbc_comboBox);
+        add(comboBox, gbc_comboBox);
         
         JLabel roomLabel = new JLabel("Select room for appointment");
         GridBagConstraints gbcRoomLabel = new GridBagConstraints();
         gbcRoomLabel.gridx = 0;
         gbcRoomLabel.gridy = 5;
-        panel.add(roomLabel, gbcRoomLabel);
+        add(roomLabel, gbcRoomLabel);
         
         JComboBox roomComboBox = new JComboBox(roomNum);
         roomComboBox.setSelectedIndex(1);
         GridBagConstraints gbcRoomBox = new GridBagConstraints();
         gbcRoomBox.gridx = 1;
         gbcRoomBox.gridy = 5;
-        panel.add(roomComboBox,gbcRoomBox);
+        add(roomComboBox,gbcRoomBox);
         
         
         confirmButton = new JButton("Confirm Appointment");
@@ -153,7 +148,7 @@ public class AppointmentInterface extends JFrame {
         gbcConfirm.anchor = GridBagConstraints.PAGE_END;
         gbcConfirm.gridx = 5;
         gbcConfirm.gridy = 5;
-        panel.add(confirmButton,gbcConfirm);
+        add(confirmButton,gbcConfirm);
         
         cancelButton = new JButton("Cancel");
         cancelButton.setBackground(Color.green);
@@ -162,7 +157,7 @@ public class AppointmentInterface extends JFrame {
         gbcCancel1.anchor = GridBagConstraints.PAGE_END;
         gbcCancel1.gridx = 6;
         gbcCancel1.gridy = 5;
-        panel.add(cancelButton,gbcCancel1);
+        add(cancelButton,gbcCancel1);
         
         JLabel selectDateLabel = new JLabel("Please select a date");
         GridBagConstraints gbcDateLabel = new GridBagConstraints();
@@ -170,7 +165,7 @@ public class AppointmentInterface extends JFrame {
         gbcDateLabel.gridy=0;
         gbcDateLabel.gridx = 2;
         gbcDateLabel.insets = new Insets(10,10,10,10);
-        panel.add(selectDateLabel,gbcDateLabel);
+        add(selectDateLabel,gbcDateLabel);
         
         JComboBox dayCombo = new JComboBox(day);
         dayCombo.setSelectedIndex(1);
@@ -178,7 +173,7 @@ public class AppointmentInterface extends JFrame {
         gbcDate.anchor = GridBagConstraints.PAGE_END;
         gbcDate.gridx=3;
         gbcDate.gridy = 0;
-        panel.add(dayCombo,gbcDate);
+        add(dayCombo,gbcDate);
         
         confirmButton.addActionListener(new ActionListener() {
 			@Override
@@ -186,22 +181,19 @@ public class AppointmentInterface extends JFrame {
 				JButton confButton = (JButton) e.getSource();
 				JOptionPane.showMessageDialog(null, confirmDialog);
 			}});
-        try{
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent t) {
 				JButton cancButton = (JButton) t.getSource();	
 				int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure?");
 				if(dialogResult == JOptionPane.YES_OPTION){
-					frame.getContentPane().removeAll();
+					//frame.getContentPane().removeAll();
 	        		//previousPanel(previous);
 					//GridBagLayout.add(splashPanel);
-	        		frame.validate();
+	        		//frame.validate();
 				}
 			}});
-        } catch(Exception e){
-        	throw new Exception("Prof email cannot be left null");
-        }
+
 //		dateButton.addActionListener(new ActionListener() {
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
@@ -212,11 +204,7 @@ public class AppointmentInterface extends JFrame {
         
         
 
-        pack();
-    }
-    
-    private static void previousPanel(JPanel previous){
-    	frame.setContentPane(previous);
+        //pack();
     }
 
 }

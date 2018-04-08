@@ -47,9 +47,9 @@ public class NotificationStudent extends JPanel {
 	JTextField messageField = new JTextField();
 	private Connection con = null;
 	PreparedStatement pstmt = null;
-	private final String connectionString = "jdbc:mysql://localhost/final?useSSL=false";
-	private final String username = "message";
-	private final String password = "password";
+	private final String connectionString = "jdbc:mysql://localhost/kiosk?useSSL=false";
+	private final String username = "root";
+	private final String password = "death101";
 	
 	public Connection getConnection() throws SQLException{
 		try {
@@ -114,11 +114,11 @@ public class NotificationStudent extends JPanel {
 			
 			// Iterate through the result set, adding to the arraylist
 			while(rs.next()){
-				int id = rs.getInt("ID");
+				int CourseID = rs.getInt("COURSEID");
 				String message = rs.getString("MESSAGE");
 				boolean checkRead = rs.getBoolean("CHECK_READ");
-				data.add(new Object[]{id, message, checkRead});
-				model.addRow(new Object[]{id, message, checkRead});
+				data.add(new Object[]{CourseID, message, checkRead});
+				model.addRow(new Object[]{CourseID, message, checkRead});
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,7 +150,7 @@ public class NotificationStudent extends JPanel {
 			con = getConnection();
 			
 			// Select all records from message_store
-			pstmt = con.prepareStatement("UPDATE notifications set Check_Read = true WHERE id = ?");
+			pstmt = con.prepareStatement("UPDATE notifications set Check_Read = true WHERE CourseID = ?");
 						
 			// Set int to the id of the selected message
 			Object[] selectedRow = data.get(selectedRowIndex);

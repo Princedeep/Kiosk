@@ -16,8 +16,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-
-public class CancelAppointment extends JFrame {
+public class CancelAppointment extends JPanel {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     String[] appointTimes = {"20/10/2018-10am", "21/10/2018-12pm", "25/10/2018-1pm"};	
@@ -38,20 +37,13 @@ public class CancelAppointment extends JFrame {
     }
 
     public CancelAppointment() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        contentPane.setLayout(new GridBagLayout());
-        setContentPane(contentPane);
 
-        JPanel panel = new JPanel();
-        contentPane.add(panel);
         GridBagLayout gbl_panel = new GridBagLayout();
         gbl_panel.columnWidths = new int[]{0, 0, 0};
         gbl_panel.rowHeights = new int[]{0, 0};
         gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
         gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-        panel.setLayout(gbl_panel);
+        setLayout(gbl_panel);
 
         JLabel cancelLabel = new JLabel("Select appointment to cancel");
         GridBagConstraints gbcCancel = new GridBagConstraints();
@@ -59,7 +51,7 @@ public class CancelAppointment extends JFrame {
         gbcCancel.anchor = GridBagConstraints.EAST;
         gbcCancel.gridx = 0;
         gbcCancel.gridy = 0;
-        panel.add(cancelLabel, gbcCancel);
+        add(cancelLabel, gbcCancel);
 
         JComboBox comboBox = new JComboBox(appointTimes);
         comboBox.setSelectedIndex(1);
@@ -67,7 +59,7 @@ public class CancelAppointment extends JFrame {
         gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
         gbc_comboBox.gridx = 1;
         gbc_comboBox.gridy = 0;
-        panel.add(comboBox, gbc_comboBox);
+        add(comboBox, gbc_comboBox);
         
         confirmButton = new JButton("Confirm");
         GridBagConstraints gbcConfirm = new GridBagConstraints();
@@ -75,7 +67,7 @@ public class CancelAppointment extends JFrame {
         gbcConfirm.anchor = GridBagConstraints.PAGE_END;
         gbcConfirm.gridx = 4;
         gbcConfirm.gridy = 4;
-        panel.add(confirmButton,gbcConfirm);
+        add(confirmButton,gbcConfirm);
         
         button = new JButton("Cancel");
         GridBagConstraints gbcCancel1 = new GridBagConstraints();
@@ -83,7 +75,7 @@ public class CancelAppointment extends JFrame {
         gbcCancel1.anchor = GridBagConstraints.PAGE_END;
         gbcCancel1.gridx = 5;
         gbcCancel1.gridy = 4;
-        panel.add(button,gbcCancel1);
+        add(button,gbcCancel1);
         
         
         button.addActionListener(new ActionListener() {
@@ -99,7 +91,7 @@ public class CancelAppointment extends JFrame {
 				JOptionPane.showMessageDialog(null, "Appointment removed");
 			}});
 
-        pack();
+       
     }
 
 }

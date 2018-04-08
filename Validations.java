@@ -135,11 +135,11 @@ public class Validations {
 							break;
 						case 2:
 							JOptionPane.showMessageDialog(null, " Student Login Successfull");
-							SplashPanel s = new SplashPanel();
-							s.SplashPanel();
+							StudentPanel s = new StudentPanel();
 
 							break;
 						case 3:
+							ProfessorPanel p = new ProfessorPanel();
 							JOptionPane.showMessageDialog(null, " Professor Login Successfull");
 							break;
 						}
