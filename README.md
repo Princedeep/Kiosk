@@ -8,6 +8,7 @@ Admin can add, delete and modify other users from system.
 
 
 Professor:
+---------------
 Professor can add timetable manaually or upload it from external drive.
 
 Professor has ability put notification for students and can clear old notifications.
@@ -16,6 +17,8 @@ Professor can access Algonquin's room finder API to locate rooms in college.
 
 
 Student:
+---------------
+Bullet list
 A student can book or cancel appointment with professor.
 
 A student can view notifications added by professor and can clear old notifications.
