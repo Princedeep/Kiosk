@@ -3,20 +3,18 @@ Koisk is java Jswing GUI application is designed to work on algonquin college ki
 Application has three different access levels according to particular role. Here are three layers:
 
 Admin layer:
-
 Admin can add, delete and modify other users from system.
 
 
 Professor:
-
 Professor can add timetable manaually or upload it from external drive.
 
 Professor has ability put notification for students and can clear old notifications.
 
 Professor can access Algonquin's room finder API to locate rooms in college.
 
-Student:
 
+Student:
 A student can book or cancel appointment with professor.
 
 A student can view notifications added by professor and can clear old notifications.
@@ -30,36 +28,36 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 1. Login window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/login.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/login.JPG)
 
 
 2. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/admin.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/admin.JPG)
 
 
 3. Student Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/student)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/student.JPG)
 
 
 4. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/professor.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/professor.JPG)
 
 
 5. Timetable Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Timetable.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Timetable.JPG)
 
 
 6. Notification
 
 Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification.JPG)
 
 
 7. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Appointment.jpg)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Appointment.JPG)
