@@ -1,33 +1,31 @@
 # KIOSK PROJECT
-Koisk is java Jswing GUI application is designed to work on algonquin college kiosk hardware to ease out appointment booking system for students and professors. Application has connectivity with enhanced database to store all system data.
+Kiosk is java Jswing GUI application is designed to work on Algonquin college kiosk hardware to ease out communication among student and professor. Application has connectivity with enhanced database to store all system data.
 Application has three different access levels according to particular role. Here are three layers:
 
 Admin layer:
 ---------------
-Admin can add, delete and modify other users from system.
+- Admin can add, delete and modify other users from system.
 
 
 Professor:
 ---------------
-Professor can add timetable manaually or upload it from external drive.
+- Professor can add timetable manaually or upload it from external drive.
 
-Professor has ability put notification for students and can clear old notifications.
+- Professor has ability put notification for students and can clear old notifications.
 
-Professor can access Algonquin's room finder API to locate rooms in college.
+- Professor can access Algonquin's room finder API to locate rooms in college.
 
 
 Student:
 ---------------
-Bullet list
-A student can book or cancel appointment with professor.
 
-A student can view notifications added by professor and can clear old notifications.
+- A student can book or cancel appointment with professor.
 
-A student can view timetable added by professor
+- A student can view notifications added by professor and can clear old notifications.
 
-Student also has ability to use Algonquin's room finder API to locate rooms in college.
+- A student can view timetable added by professor
 
-
+- Student also has ability to use Algonquin's room finder API to locate rooms in college.
 
 
 1. Login window
