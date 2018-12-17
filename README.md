@@ -2,7 +2,7 @@
 Kiosk is java Jswing GUI application is designed to work on Algonquin college kiosk hardware to ease out communication among student and professor. Application has connectivity with enhanced database to store all system data.
 Application has three different access levels according to particular role. Here are three layers:
 
-Admin layer:
+Admin:
 ---------------
 - Admin can add, delete and modify other users from system.
 
@@ -53,7 +53,7 @@ Student:
 ![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/Timetable.JPG)
 
 
-6. Notification
+6. Notification Window
 
 ![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/Notification.JPG)
 
