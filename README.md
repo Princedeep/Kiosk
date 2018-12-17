@@ -28,12 +28,12 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 1. Login window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/login.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/login.JPG)
 
 
 2. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/admin.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/admin.JPG)
 
 
 3. Student Window
@@ -41,21 +41,21 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 ![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/student.JPG)
 
 
-4. Admin Window
+4. Professor Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/professor.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/professor.JPG)
 
 
 5. Timetable Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Timetable.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/Timetable.JPG)
 
 
 6. Notification
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/Notification.JPG)
 
 
-7. Admin Window
+7. Appointment Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Appointment.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/Appointment.JPG)
