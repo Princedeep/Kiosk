@@ -3,18 +3,26 @@ Koisk is java Jswing GUI application is designed to work on algonquin college ki
 Application has three different access levels according to particular role. Here are three layers:
 
 Admin layer:
+
 Admin can add, delete and modify other users from system.
 
 
 Professor:
+
 Professor can add timetable manaually or upload it from external drive.
+
 Professor has ability put notification for students and can clear old notifications.
+
 Professor can access Algonquin's room finder API to locate rooms in college.
 
 Student:
+
 A student can book or cancel appointment with professor.
+
 A student can view notifications added by professor and can clear old notifications.
+
 A student can view timetable added by professor
+
 Student also has ability to use Algonquin's room finder API to locate rooms in college.
 
 
@@ -22,12 +30,12 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 1. Login window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/login)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/login.jpg)
 
 
 2. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/admin)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/admin.jpg)
 
 
 3. Student Window
@@ -37,21 +45,21 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 4. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/professor)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/professor.jpg)
 
 
 5. Timetable Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Timetable)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Timetable.jpg)
 
 
 6. Notification
 
 Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification.jpg)
 
 
 7. Admin Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Appointment)
+![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Appointment.jpg)
