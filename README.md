@@ -38,7 +38,7 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 3. Student Window
 
-![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/student.JPG)
+![alt text](https://github.com/Princedeep/Kiosk/blob/master/Project_Images/student.JPG)
 
 
 4. Admin Window
@@ -52,8 +52,6 @@ Student also has ability to use Algonquin's room finder API to locate rooms in c
 
 
 6. Notification
-
-Admin Window
 
 ![alt text](https://github.com/Princedeep/Kiosk/tree/master/Project_Images/Notification.JPG)
 
