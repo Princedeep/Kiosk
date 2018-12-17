@@ -3,6 +3,7 @@ Koisk is java Jswing GUI application is designed to work on algonquin college ki
 Application has three different access levels according to particular role. Here are three layers:
 
 Admin layer:
+---------------
 Admin can add, delete and modify other users from system.
 
 
